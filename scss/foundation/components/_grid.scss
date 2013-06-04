@@ -63,7 +63,7 @@ $total-columns: 12 !default;
 
 
 // For creating columns - @include these inside a media query to control small vs. large grid layouts
-@mixin grid-column($columns:false, $last-column:false, $center:false, $offset:false, $push:false, $pull:false, $collapse:false, $float:true) {
+@mixin grid-column($columns:false, $center:false, $offset:false, $push:false, $pull:false, $collapse:false, $float:true, $last-column:false) {
 
   position: relative;
 
@@ -83,9 +83,6 @@ $total-columns: 12 !default;
   // If a column number is given, calculate width
   @if $columns {
     width: gridCalc($columns, $total-columns);
-
-    // If last column, float naturally instead of to the right
-    @if $last-column { float: $opposite-direction; }
   }
 
   // If offset, calculate appropriate margins
@@ -107,6 +104,10 @@ $total-columns: 12 !default;
     @else if $float == right { float: $opposite-direction; }
     @else { float: none; }
   }
+
+  // If last column, float to the right instead of naturally to the left
+  // Useful when columns don't add up to 12
+  @if $last-column { float: $opposite-direction; }
 
 }
 
